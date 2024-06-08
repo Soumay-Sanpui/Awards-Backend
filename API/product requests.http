@@ -1,0 +1,55 @@
+@baseUrl = http://localhost:8000/api/v1/awards/
+@baseUrlAdmin = http://localhost:8000/api/v1/awards/admin
+@id = 6652e32b3508040d157800aa
+
+### GET (GLOBAL)
+GET http://localhost:8000/
+Content-Type: application/json
+
+###
+
+### POST (ADD PRODUCT)
+# @name Add Product
+POST {{baseUrlAdmin}}/addProduct
+Content-Type: application/json
+
+{
+  "awardName": "Sample 2",
+  "awardPrice": 2000,
+  "awardType": "Plate",
+  "isAvailable": true,
+  "awardSample": "this/is/the/cloudinary/link/to/sample2",
+  "samplePublicId": "this_is_the_public_id",
+  "awardSize": "medium"
+}
+
+###
+
+### GET (VIEW PRODUCTS)
+# @name = "view product"
+# @no-log
+GET {{baseUrl}}/viewMedia
+Content-Type: application/json
+
+###
+
+### GET (VIEW SINGLE PRODUCT)
+GET {{baseUrl}}/viewMedia/{{id}}
+
+###
+
+### DELETE (DELETE PRODUCT)
+DELETE {{baseUrlAdmin}}/deleteMedia/{{id}}
+
+###
+
+### PATCH (UPDATE PRODUCT)
+PATCH {{baseUrlAdmin}}/updateMedia/{{id}}
+Content-Type: application/json
+
+{
+  "awardName": "Updated name (sample)",
+  "awardPrice": 4000
+}
+
+###

@@ -1,0 +1,61 @@
+@baseUrl = http://localhost:8000/api/v1/awards/user/
+@baseUrlAdmin = http://localhost:8000/api/v1/awards/admin/
+@id = 66555a79e0ac78bc323f0782
+@sample_Admin_pass = "admin123"
+
+### POST (ADD USER) (REGISTER)
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "fullName": "Trophy lala",
+  "username": "lala",
+  "orgName": "SOMETHING",
+  "email": "lala@gmail.com",
+  "password": {{sample_Admin_pass}},
+  "phoneNumber": "9852471365",
+  "role": "admin",
+  "orders": []
+}
+
+###
+
+### POST (LOGIN)
+# @no-log
+# @name LOGIN USER
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+  "username": "lala",
+  "email": "lala@gmail.com",
+  "password": {{sample_Admin_pass}}
+}
+###
+
+### GET (VIEW USER)
+GET {{baseUrlAdmin}}/viewUsers
+Content-Type: application/json
+Authorization: Bearer sample_bearer_token_here
+###
+
+### GET (VIEW SINGLE USER)
+GET {{baseUrl}}/viewUser/{{id}}
+
+###
+
+### DELETE (DELETE USER)
+DELETE {{baseUrlAdmin}}/deleteUser/{{id}}
+Authorization: Bearer sample_bearer_token_here
+###
+
+### PATCH (UPDATE USER)
+PATCH {{baseUrlAdmin}}/updateMedia/{{id}}
+Content-Type: application/json
+
+{
+  "awardName": "Updated name (sample)",
+  "awardPrice": 4000
+}
+
+###
