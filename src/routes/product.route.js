@@ -5,7 +5,8 @@ import  { addNewProduct,
     deleteProduct, 
     updateProduct, 
     getSTPConfig, 
-    STcreatePayIntent 
+    STcreatePayIntent,
+    getFromIds
 } from "../controllers/product.controller.js";
 import authMiddleware from "../middlewares/authMiddleware.js";
 
@@ -18,6 +19,7 @@ router.route("/admin/updateMedia/:id").patch(updateProduct);
 
 /* USER ROUTES */
 router.route("/viewMedia/:id").get(viewSingleProduct);
+router.route("/viewMedia/getfromIds").post(getFromIds);
 router.route("/viewMedia").get(viewMedia);
 router.route("/prConfig").get(getSTPConfig);
 router.route("/cpi").post(STcreatePayIntent);

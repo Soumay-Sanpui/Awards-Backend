@@ -113,6 +113,27 @@ const updateProduct = async (req, res) => {
     }
 };
 
+// Fetch Products by array of IDs
+const getFromIds = async (req, res) => {
+    try {
+        const { ids } = req.body; // Expecting an array of IDs in the request body
+        const products = await Award.find({ '_id': { $in: ids } });
+        if (products.length > 0) {
+            return res.status(200).json(new ApiResponse(200, products, "Products fetched successfully."));
+        } else {
+            return res.status(404).json({
+                error: "Products not found",
+                message: "No products found with the given IDs."
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({
+            error: e.message,
+            message: "Unable to fetch products at the moment."
+        });
+    }
+};
+
 // get the publishable key
 const getSTPConfig = (req,res) => {
     // pass the publishable key to the frontend
@@ -125,7 +146,7 @@ const STcreatePayIntent = async (req, res) => {
         const { description, customerName, customerAddress } = req.body; 
         const paymentIntent = await stripe.paymentIntents.create({
             currency: "inr",
-            amount: 8000, 
+            amount: 680, 
             description, 
             shipping: {
                 name: customerName,
@@ -161,4 +182,4 @@ const STcreatePayIntent = async (req, res) => {
         });
     }
 }
-export { addNewProduct, viewSingleProduct, viewMedia, deleteProduct, updateProduct, getSTPConfig, STcreatePayIntent};
+export { addNewProduct, viewSingleProduct, viewMedia, deleteProduct, updateProduct, getSTPConfig, STcreatePayIntent, getFromIds};
